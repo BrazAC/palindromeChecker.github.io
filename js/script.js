@@ -6,8 +6,7 @@ function allInOne(inputElement){
     const inputData = inputElement.value;
     const clearedString = inputData.replace(/[^a-zA-Z\d:]/g, "").toLowerCase();
     let zeroBaseCharAmount = clearedString.length;
-
-    const proveArray = [];
+    let counter = 0;
 
     if(zeroBaseCharAmount % 2 == 0){
         zeroBaseCharAmount = zeroBaseCharAmount/2;
@@ -15,22 +14,15 @@ function allInOne(inputElement){
         zeroBaseCharAmount = Math.trunc(zeroBaseCharAmount/2);
     }
 
-    for(let i = 0; i <= (zeroBaseCharAmount - 1); i++){
-        
-        if(clearedString[i] === clearedString[(clearedString.length - 1) - i]){
-            proveArray.push('1'); 
+    for(let j = 0; j <= (zeroBaseCharAmount - 1); j++){
+        if(clearedString[j] !== clearedString[(clearedString.length - 1) - j]){
+            resultDiv.textContent = `${inputData} is not a palindrome`;
+            break;
         }else{
-            proveArray.push('0');
+            counter ++;
         }
     }
-
-    if(proveArray.indexOf('0') !== -1){
-        console.log("NÃO É");
-        resultDiv.textContent = `${inputData} is not a palindrome`;
-    }else{
-        console.log("É");
-        resultDiv.textContent = `${inputData} is a palindrome`;
-    } 
+    if(counter == zeroBaseCharAmount){resultDiv.textContent = `${inputData} is a palindrome`};
 }
 
 function verifyAndRun(){
@@ -41,4 +33,4 @@ function verifyAndRun(){
     }
 }
 
-buttonCheck.addEventListener('click',()=>{verifyAndRun()});
+buttonCheck.addEventListener('click', verifyAndRun);
